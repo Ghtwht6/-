@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>圣诞🎄快乐</title>
+    <style>
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #main {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #video1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #greeting {
+    position: absolute;
+    top: 15%;
+    left: 8%;
+    color: transparent;
+    font-size: 6rem;
+    font-family: 'Pacifico', cursive;
+    font-weight: bold;
+    background-image: linear-gradient(90deg, #FF6B6B, #FFD93D, #4BCFFA);
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    animation: none;
+}
+
+
+
+
+
+
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+    </style>
+</head>
+
+<body id="app">
+    <div id="main">
+        <video id="video1" muted autoplay loop src="./src/chrismas.mp4"></video>
+        <audio id="music1" preload="auto">
+            <source src="./src/JingleBellRock.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div id="greeting">圣诞快乐</div>
+    </div>
+
+    <script>
+        const video = document.getElementById("video1");
+        const music = document.getElementById("music1");
+        const greeting = document.getElementById("greeting");
+
+        // 设置视频的播放速度
+        video.playbackRate = 0.8;
+
+        // 页面加载完成后检查音频是否已准备好
+        window.addEventListener("load", () => {
+            if (!music.readyState) {
+                console.warn("Audio file is not ready.");
+            }
+        });
+
+        // 每次视频循环时处理动画
+        video.addEventListener("timeupdate", () => {
+            const currentTime = video.currentTime;
+            if (currentTime >= 7.5 && currentTime <= 9) {
+                greeting.style.opacity = "1";
+                greeting.style.animation = "fadeIn 1.5s ease-in-out forwards, fadeOut 1.5s ease-in-out 1.5s forwards";
+            } else {
+                greeting.style.opacity = "0";
+                greeting.style.animation = "none";
+            }
+        });
+
+        // 音频加载错误时的事件
+        music.addEventListener("error", () => {
+            console.error("Failed to load audio file. Check the file path or format.");
+        });
+    </script>
+</body>
+</html>
